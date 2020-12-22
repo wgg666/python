@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="./jsencrypt.js"></script>
+<!-- <script src="./jsencrypt.min.js"></script> -->
+<!-- <script src="./rsa_util.js"></script> -->
+<script>
+    function RSAencode(str){
+	var pubk = Base64.decode('MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCb71WiUMr2WMwCvCJC/M868kojjC5nTlW2VAXwWOaiPQh9F9pbs8MgoqUMeXEJb7H9LWh/Yqtv8eTpRQq6TCMyaU8u/vj5rZsqFR7wEOEL+zDdt7Xr/n7aoOwRDMYRPdnxV5PwyDLYrVGX4/x4+SxcpbflgchjPHx10ubEd7KM2QIDAQAB');
+	var result = '';
+	if(pubk && str){
+		// pubk = Base64.decode(pubk);
+		// var encryptionExponent = '';
+		// var modulus = '';
+		// if(pubk){
+		// 	encryptionExponent = pubk.split(',')[0];
+		// 	modulus = pubk.split(',')[1];
+		// }
+		// if(encryptionExponent && modulus){
+		// 	setMaxDigits(129);
+		// 	var key = RSAUtils.getKeyPair(encryptionExponent, '', modulus);
+		// 	result = RSAUtils.encryptedString(key, str);
+		// }
+		var encrypt = new JSEncrypt();
+	    encrypt.setPublicKey(pubk);
+	    result = encrypt.encrypt(encodeURI(str));
+	}
+	return result;
+}
+    document.write(RSAencode('13265547087'))
+</script>
+</html>

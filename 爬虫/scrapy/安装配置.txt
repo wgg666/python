@@ -1,0 +1,67 @@
+pip install wheel
+下载twisted，下载地址为http://www.lfd.uci.edu/~gohlke/pythonlibs/#twisted
+cp是python版本
+pip install Twisted-20.3.0-cp38-cp38-win32.whl
+pip install pywin32
+pip install scrapy
+pip freeze > F:/programming/python/配置/pip.txt  
+
+
+创建工程：
+cd F:\programming\python\爬虫\scrapy
+scrapy startproject testproject(项目名字)
+
+创建爬虫文件：
+cd F:\programming\python\爬虫\scrapy\testproject\spiders
+在spiders子目录创建一个爬虫文件
+scrapy genspider spiderName www.xxx.com 
+
+执行工程：
+指令:   
+模拟访问 -s 设置请求头
+scrapy shell http://www.qiushibaike.com/text/ -s USER_AGENT=‘Mozilla/5.0’
+--nolog 不输出日志
+scrapy crawl 文件名 
+scrapy crawl first
+
+
+目录：
+项目/spiders文件夹   爬虫文件夹
+项目/settings.py    工程配置文件
+项目/middlewares.py 中间件文件
+项目/pipelines.py    管道
+项目/items.py       处理数据
+scrapy.cfg  工程配置文件
+
+settings.py设置：
+#UA伪装
+import random
+from 爬虫.py.headers import user_agent
+# 设置UA
+USER_AGENT = random.choice(user_agent)
+
+设置请求头
+from 爬虫.py.headers import headers
+DEFAULT_REQUEST_HEADERS = headers
+
+#不遵从robots协议
+ROBOTSTXT_OBEY = False
+
+#只输出错误日志
+LOG_LEVEL = 'ERROR'
+
+
+scrapy爬取网页数据是返回[ ],或者说爬取不到数据的排查方法:
+可能的原因：
+1，ip封锁爬取
+2，xpath路径不对
+3，xpath路径出现font,tbody标签
+4，xpath路径不够明确
+5，robot协议
+
+1，在dos窗口，输入 scrapy shell https://news.sina.com.cn/gov/xlxw/2019-07-12/doc-ihytcerm3070493.shtml 
+回车 （注意这里是你的网址）
+response的返回状态码是200（200~300间都可以），说明返回成功！
+2.view(response) 必须返回true
+3.response.xpath(’/html/body/div[3]/h1/text()’).extract()
+必须返回数据

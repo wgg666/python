@@ -1,0 +1,19 @@
+执行工程：
+scrapy crawl 爬虫文件名 
+scrapy crawl first
+
+
+指令:   
+-s 设置请求头
+--nolog 不输出日志
+访问页面 
+scrapy shell http://www.qiushibaike.com/text/ -s USER_AGENT='Mozilla/5.0'
+
+持久化存储:
+基于终端指令:
+文件后缀只可以为json,jsonlines,jl,csv,xml,marshal,pickle
+scrapy crawl 爬虫文件名 -o F:\programming\python\爬虫\csv\名字.csv
+
+基于管道:
+items.py  设置要存储的内容
+pipelines.py  
